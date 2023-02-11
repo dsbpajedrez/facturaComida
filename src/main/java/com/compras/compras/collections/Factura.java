@@ -3,6 +3,8 @@ package com.compras.compras.collections;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
 public class Factura {
     @Id
     private String id;
-    private Date date;
+    private LocalTime date;
     private String idType;
     private String clientId;
     private String clientName;
@@ -25,11 +27,11 @@ public class Factura {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalTime date) {
         this.date = date;
     }
 

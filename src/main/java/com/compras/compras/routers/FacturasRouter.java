@@ -23,6 +23,18 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class FacturasRouter {
     @Autowired
     WebClient webClient;
+
+    @Bean
+    public RouterFunction<ServerResponse> getAllProducts(GetAllProductsUseCase getAllProductsUseCase) {
+        return route(
+                GET("/getAll/{page}"),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllProductsUseCase
+                                .getAllProducts(request.pathVariable("page")),Producto[].class
+                        ))
+        );
+    }
     @Bean
     public RouterFunction<ServerResponse> create(CreateFacturaUseCase createFacturaUseCase){
         Function<FacturaDTO, Mono<ServerResponse>> executor = facturaDTO ->  createFacturaUseCase.apply(facturaDTO)

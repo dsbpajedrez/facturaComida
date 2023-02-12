@@ -174,6 +174,31 @@ public class FacturasRouter {
         );
     }
     @Bean
+    @RouterOperation
+            (
+                    path = "/seekById/{id}",
+                    produces = {
+                            MediaType.APPLICATION_JSON_VALUE
+                    },
+                    method = RequestMethod.GET,
+                    beanClass = FacturasRouter.class,
+                    beanMethod = "seekById",
+                    operation = @Operation(
+                            operationId = "seekById",
+                            responses = {
+                                    @ApiResponse(
+                                            responseCode = "200",
+                                            description = "Succesful",
+                                            content = @Content(schema = @Schema(
+                                                    implementation = FacturaDTO.class
+                                            ))
+                                    )
+                            },
+                            parameters = {
+                                    @Parameter(in = ParameterIn.PATH, name = "id")
+                            }
+                    )
+            )
     public RouterFunction<ServerResponse> seekById(FindByIdUseCase findByIdUseCase) {
         return route(
                 GET("/seekById/{id}"),

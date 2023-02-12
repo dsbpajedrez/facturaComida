@@ -211,6 +211,32 @@ public class FacturasRouter {
     }
 
     @Bean
+    @RouterOperation
+            (
+                    path = "/updateInventary/{id}/{quantity}",
+                    produces = {
+                            MediaType.APPLICATION_JSON_VALUE
+                    },
+                    method = RequestMethod.PATCH,
+                    beanClass = FacturasRouter.class,
+                    beanMethod = "updateInventary",
+                    operation = @Operation(
+                            operationId = "updateInventary",
+                            responses = {
+                                    @ApiResponse(
+                                            responseCode = "200",
+                                            description = "Succesful",
+                                            content = @Content(schema = @Schema(
+                                                    implementation = FacturaDTO.class
+                                            ))
+                                    )
+                            },
+                            parameters = {
+                                    @Parameter(in = ParameterIn.PATH, name = "id"),
+                                    @Parameter(in = ParameterIn.PATH, name = "quantity")
+                            }
+                    )
+            )
     public RouterFunction<ServerResponse> updateInventary(UpdateProductUseCase updateProductUseCase) {
         return route(PATCH("/updateInventary/{id}/{quantity}").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse

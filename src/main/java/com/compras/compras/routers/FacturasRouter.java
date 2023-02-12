@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springdoc.core.annotations.RouterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,32 @@ public class FacturasRouter {
        );
    }
     @Bean
+    @RouterOperation(
+            path = "/createBill",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            },
+            method = RequestMethod.POST,
+            beanClass = FacturasRouter.class,
+            beanMethod = "create",
+            operation = @Operation(
+                    operationId = "create",
+                    responses = {
+                            @ApiResponse(
+                                    responseCode = "200",
+                                    description = "Succesful",
+                                    content = @Content(schema = @Schema(
+                                            implementation = FacturaDTO.class
+                                    ))
+                            ),
+                            @ApiResponse(
+                                    responseCode  ="400", description = "Not found"
+                            ),
+                    },
+                    requestBody = @RequestBody(content = @Content(schema = @Schema(implementation = FacturaDTO.class)))
+
+            )
+    )
     public RouterFunction<ServerResponse> create(CreateFacturaUseCase createFacturaUseCase){
         Function<FacturaDTO, Mono<ServerResponse>> executor = facturaDTO ->  createFacturaUseCase.apply(facturaDTO)
                 .flatMap(result -> ServerResponse.ok()
@@ -111,6 +138,31 @@ public class FacturasRouter {
 
     }
     @Bean
+    @RouterOperation
+            (
+                    path = "/seekByName/{name}",
+                    produces = {
+                            MediaType.APPLICATION_JSON_VALUE
+                    },
+                    method = RequestMethod.GET,
+                    beanClass = FacturasRouter.class,
+                    beanMethod = "findById",
+                    operation = @Operation(
+                            operationId = "findById",
+                            responses = {
+                                    @ApiResponse(
+                                            responseCode = "200",
+                                            description = "Succesful",
+                                            content = @Content(schema = @Schema(
+                                                    implementation = FacturaDTO.class
+                                            ))
+                                    )
+                            },
+                            parameters = {
+                                    @Parameter(in = ParameterIn.PATH, name = "name")
+                            }
+                    )
+            )
     public RouterFunction<ServerResponse> findById(FindByNameUseCase findByNameUseCase) {
         return route(
                 GET("/seekByName/{name}"),

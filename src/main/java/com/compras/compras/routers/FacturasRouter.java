@@ -1,5 +1,6 @@
 package com.compras.compras.routers;
 
+import com.compras.compras.collections.Factura;
 import com.compras.compras.model.FacturaDTO;
 import com.compras.compras.model.Producto;
 import com.compras.compras.usecases.*;
@@ -12,17 +13,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 import java.util.function.Function;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
-import static org.springframework.web.reactive.function.server.RouterFunctions.resourceLookupFunction;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class FacturasRouter {
-    @Autowired
-    WebClient webClient;
+
 
     @Bean
     public RouterFunction<ServerResponse> getAllProducts(GetAllProductsUseCase getAllProductsUseCase) {
@@ -35,6 +34,25 @@ public class FacturasRouter {
                         ))
         );
     }
+    /*@Bean
+    public RouterFunction<ServerResponse> getAllBills(ListBillsUseCase listBillsUseCase) {
+        return route(
+                GET("/getAllBills"),
+                request -> ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(listBillsUseCase.get(), FacturaDTO.class))
+
+        );
+    }*/
+   @Bean
+   public RouterFunction<ServerResponse> getAllBills(GetAllBillsUseCase getAllBillsUseCase) {
+       return route(
+               GET("/getAllBills"),
+               request -> ok()
+                       .contentType(MediaType.APPLICATION_JSON)
+                       .body(BodyInserters.fromPublisher(getAllBillsUseCase.get(), FacturaDTO.class))
+       );
+   }
     @Bean
     public RouterFunction<ServerResponse> create(CreateFacturaUseCase createFacturaUseCase){
         Function<FacturaDTO, Mono<ServerResponse>> executor = facturaDTO ->  createFacturaUseCase.apply(facturaDTO)

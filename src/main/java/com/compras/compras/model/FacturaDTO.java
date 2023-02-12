@@ -10,17 +10,25 @@ import java.util.List;
 import java.util.Objects;
 
 public class FacturaDTO {
-    @Id
+
     private String id;
     private LocalTime date;
     private String idType;
-    @NotBlank
+
     private String clientId;
     private String clientName;
     private List products;
 
     public FacturaDTO() {
 
+    }
+
+    public FacturaDTO(LocalTime date, String idType, String clientId, String clientName, List products) {
+        this.date = date;
+        this.idType = idType;
+        this.clientId = clientId;
+        this.clientName = clientName;
+        this.products = products;
     }
 
     public FacturaDTO(String id, LocalTime date, String idType, String clientId, String clientName, List products) {

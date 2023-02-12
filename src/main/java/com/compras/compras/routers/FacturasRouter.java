@@ -67,17 +67,29 @@ public class FacturasRouter {
                         ))
         );
     }
-    /*@Bean
-    public RouterFunction<ServerResponse> getAllBills(ListBillsUseCase listBillsUseCase) {
-        return route(
-                GET("/getAllBills"),
-                request -> ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(listBillsUseCase.get(), FacturaDTO.class))
-
-        );
-    }*/
    @Bean
+   @RouterOperation
+           (
+                   path = "/getAllBills",
+                   produces = {
+                           MediaType.APPLICATION_JSON_VALUE
+                   },
+                   method = RequestMethod.GET,
+                   beanClass = FacturasRouter.class,
+                   beanMethod = "getAllBills",
+                   operation = @Operation(
+                           operationId = "getAllBills",
+                           responses = {
+                                   @ApiResponse(
+                                           responseCode = "200",
+                                           description = "Succesful",
+                                           content = @Content(schema = @Schema(
+                                                   implementation = FacturaDTO.class
+                                           ))
+                                   )
+                           }
+                   )
+           )
    public RouterFunction<ServerResponse> getAllBills(GetAllBillsUseCase getAllBillsUseCase) {
        return route(
                GET("/getAllBills"),

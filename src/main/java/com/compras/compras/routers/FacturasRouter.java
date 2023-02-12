@@ -4,10 +4,18 @@ import com.compras.compras.collections.Factura;
 import com.compras.compras.model.FacturaDTO;
 import com.compras.compras.model.Producto;
 import com.compras.compras.usecases.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springdoc.core.annotations.RouterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -24,6 +32,31 @@ public class FacturasRouter {
 
 
     @Bean
+    @RouterOperation
+            (
+                    path = "/getAll/{page}",
+                    produces = {
+                            MediaType.APPLICATION_JSON_VALUE
+                    },
+                    method = RequestMethod.GET,
+                    beanClass = FacturasRouter.class,
+                    beanMethod = "getAllProducts",
+                    operation = @Operation(
+                            operationId = "getAllProducts",
+                            responses = {
+                                    @ApiResponse(
+                                            responseCode = "200",
+                                            description = "Succesful",
+                                            content = @Content(schema = @Schema(
+                                                    implementation = FacturaDTO.class
+                                            ))
+                                    )
+                            },
+                            parameters = {
+                                    @Parameter(in = ParameterIn.PATH, name = "page")
+                            }
+                    )
+            )
     public RouterFunction<ServerResponse> getAllProducts(GetAllProductsUseCase getAllProductsUseCase) {
         return route(
                 GET("/getAll/{page}"),

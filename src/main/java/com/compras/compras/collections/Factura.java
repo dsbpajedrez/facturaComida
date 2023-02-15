@@ -7,14 +7,20 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
-
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 @Document(collection = "Factura")
 public class Factura {
     @Id
     private String id;
     private LocalTime date;
+    @NotNull(message = "id cannot be null")
     private String idType;
+    @Min(value = 8, message = "Id should not be less than 3")
+    @Max(value = 10, message = "ID should not be greater than 10")
     private String clientId;
+    @NotNull(message = "Name cannot be null")
     private String clientName;
     private List products;
 

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import org.springframework.boot.test.mock.mockito.MockBean;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
@@ -25,6 +26,7 @@ class GetAllBillsUseCaseTest {
     @BeforeEach
     public void setup(){
         MapperUtils mapperUtils = new MapperUtils();
+
         repository = mock(FacturaRepository.class);
         getAllBillsUseCase = new GetAllBillsUseCase( repository, mapperUtils);
     }

@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -17,12 +18,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CreateFacturaUseCaseTest {
     @Autowired
     MapperUtils mapperUtils;
-    @Mock
+    @MockBean
     FacturaRepository facturaRepository;
     @SpyBean
     CreateFacturaUseCase createFacturaUseCase;
@@ -31,14 +32,14 @@ class CreateFacturaUseCaseTest {
         Factura factura = new Factura();
         LocalTime fecha = LocalTime.now();
         List listProducts = new ArrayList();
-        FacturaDTO facturaDTO =new FacturaDTO("1", fecha, "cc", "123", "carlos", listProducts);
+        FacturaDTO facturaDTO =new FacturaDTO("1", fecha, "cc", "123", "Alberto", listProducts);
         factura.setId(facturaDTO.getId());
         factura.setIdType(facturaDTO.getIdType());
         factura.setClientId(facturaDTO.getClientId());
         factura.setClientName(facturaDTO.getClientName());
         factura.setProducts(facturaDTO.getProducts());
 
-        Mockito.when(facturaRepository.save(factura))
+        Mockito.when(facturaRepository.save(any()))
                 .thenReturn(
                         Mono.just(
                                 mapperUtils.mapperToFactura(

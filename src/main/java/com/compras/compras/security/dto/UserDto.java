@@ -17,12 +17,12 @@ public class UserDto {
     private String email;
     @NotBlank(message = "Password is mandatory")
     private String password;
-    List<RolesEnum> roles;
+    List<String> roles;
 
     public UserDto() {
     }
 
-    public UserDto(String id, String userName, String email, String password, List<RolesEnum> roles) {
+    public UserDto(String id, String userName, String email, String password, List<String> roles) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -62,11 +62,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public List<RolesEnum> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RolesEnum> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 }

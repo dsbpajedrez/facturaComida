@@ -13,7 +13,7 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    List<RolesEnum> roles;
+    List<String> roles;
 
     public String getId() {
         return id;
@@ -47,11 +47,11 @@ public class User {
         this.password = password;
     }
 
-    public List<RolesEnum> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RolesEnum> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 }

@@ -6,6 +6,8 @@ import com.compras.compras.security.dto.UserDto;
 import com.compras.compras.security.enums.RolesEnum;
 import com.compras.compras.security.repository.SaveUser;
 import com.compras.compras.security.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;
@@ -19,10 +21,13 @@ import java.util.stream.Collectors;
 public class UserUseCase implements SaveUser {
     private final UserRepository userRepository;
     private final MapperUtilsUser mapperUtilsUser;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
-    public UserUseCase(UserRepository userRepository, MapperUtilsUser mapperUtilsUser) {
+    public UserUseCase(UserRepository userRepository, MapperUtilsUser mapperUtilsUser, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mapperUtilsUser = mapperUtilsUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,6 +37,7 @@ public class UserUseCase implements SaveUser {
                     if (user) {
                         return  Mono.error(new Exception("Ya existe mi rey"));
                     }
+                    userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
                     return userRepository
                             .save(mapperUtilsUser.mapperToUser(null).apply(userDTO))
                             .map(User::getId);

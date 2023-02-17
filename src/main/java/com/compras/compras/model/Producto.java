@@ -22,6 +22,18 @@ public class Producto implements Serializable {
 
     }
 
+    public Producto(String id, String name, Integer inInventory, Boolean enable, Integer min, Integer max, String url, Boolean state, Long price) {
+        this.id = id;
+        this.name = name;
+        this.inInventory = inInventory;
+        this.enable = enable;
+        this.min = min;
+        this.max = max;
+        this.url = url;
+        this.state = state;
+        this.price = price;
+    }
+
     public String getId() {
         return id;
     }

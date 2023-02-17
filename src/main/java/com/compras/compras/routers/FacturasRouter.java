@@ -247,6 +247,38 @@ public class FacturasRouter {
                                                         Integer.valueOf(request.pathVariable("quantity"))),
                                         Producto.class)));
     }
+    @Bean
+    public RouterFunction<ServerResponse> createProduct(CreateProductUseCase createProductUseCase) {
+        Function<Producto, Mono<ServerResponse>> executor = producto ->   createProductUseCase.apply(producto)
+                .flatMap(result -> ServerResponse.ok()
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .bodyValue(result));
+        return route(
+                POST("/createProduct").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(Producto.class).flatMap(executor)
+        );
+
+    }
+    @Bean
+    public RouterFunction<ServerResponse> updateProduct(UpdateTotalProdUseCase updateTotalProdUseCase) {
+        Function<Producto, Mono<ServerResponse>> executor = producto ->   updateTotalProdUseCase.apply(producto)
+                .flatMap(result -> ServerResponse.ok()
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .bodyValue(result));
+        return route(
+                PUT("/update").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(Producto.class).flatMap(executor)
+        );
+
+    }
+    @Bean
+    public RouterFunction<ServerResponse> patchState(PatchStateUseCase patchStateUseCase) {
+        return route(
+                PATCH("/changeState/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.accepted()
+                        .body(BodyInserters.fromPublisher(patchStateUseCase.apply(request.pathVariable("id")),Producto.class))
+        );
+    }
 
 
 }

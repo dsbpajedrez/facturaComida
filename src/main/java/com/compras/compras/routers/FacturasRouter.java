@@ -74,7 +74,6 @@ public class FacturasRouter {
         );
     }
    @Bean
-   @PreAuthorize("hasRole('ADMIN')")
    @RouterOperation
            (
                    path = "/getAllBills",

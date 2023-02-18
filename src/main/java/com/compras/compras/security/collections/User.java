@@ -1,57 +1,62 @@
 package com.compras.compras.security.collections;
 
 import com.compras.compras.security.enums.RolesEnum;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "Users")
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Document(collection = "User")
+public class User implements UserDetails {
     @Id
+    @Getter
+    @Setter
     private String id;
-    private String userName;
-    private String email;
+
+    @Getter
+    @Setter
+    private String username;
+    @Getter
+    @Setter
     private String password;
-    List<String> roles;
+    @Getter @Setter
+    private List<RolesEnum> roles;
 
-    public String getId() {
-        return id;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public String getUsername() {
+        return null;
     }
 
-    public String getUserName() {
-        return userName;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

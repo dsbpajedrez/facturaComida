@@ -12,8 +12,7 @@ public class MapperUtilsUser {
     public Function<UserDto, User> mapperToUser(String id) {
         return updateUser -> {
             var userDTO = new User();
-            userDTO.setUserName(updateUser.getUserName());
-            userDTO.setEmail(updateUser.getEmail());
+            userDTO.setUsername(updateUser.getUsername());
             userDTO.setId(updateUser.getId());
             userDTO.setPassword(updateUser.getPassword());
             userDTO.setRoles(updateUser.getRoles());
@@ -24,8 +23,7 @@ public class MapperUtilsUser {
     public Function<User, UserDto> mapEntityToUser() {
         return entity -> new UserDto(
                 entity.getId(),
-                entity.getUserName(),
-                entity.getEmail(),
+                entity.getUsername(),
                 entity.getPassword(),
                 entity.getRoles()
         );

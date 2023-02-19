@@ -15,16 +15,16 @@ import java.util.Map;
 @Component
 public class JWTUtil {
 
-    @Value("${springbootjjwt.jjwt.secret}")
+    @Value("${springbootwebfluxjjwt.jjwt.secret}")
     private String secret;
 
-    @Value("${springbootjjwt.jjwt.expiration}")
+    @Value("${springbootwebfluxjjwt.jjwt.expiration}")
     private String expirationTime;
 
     private Key key;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
@@ -53,7 +53,6 @@ public class JWTUtil {
 
     private String doGenerateToken(Map<String, Object> claims, String username) {
         Long expirationTimeLong = Long.parseLong(expirationTime); //in second
-
         final Date createdDate = new Date();
         final Date expirationDate = new Date(createdDate.getTime() + expirationTimeLong * 1000);
 

@@ -1,43 +1,45 @@
 package com.compras.compras.security.collections;
 
 import com.compras.compras.security.enums.RolesEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Document(collection = "User")
 public class User implements UserDetails {
-    @Id
-    @Getter
-    @Setter
-    private String id;
 
-    @Getter
-    @Setter
+    @Id
+    @Getter @Setter
+    private String id;
     private String username;
-    @Getter
-    @Setter
+
     private String password;
+
+    @Getter @Setter
+    private Boolean enabled;
+
     @Getter @Setter
     private List<RolesEnum> roles;
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
     @Override
     public String getUsername() {
-        return null;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -57,6 +59,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.enabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream().map(authority -> new SimpleGrantedAuthority(authority.name())).collect(Collectors.toList());
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

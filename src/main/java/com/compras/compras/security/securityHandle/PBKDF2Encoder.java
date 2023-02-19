@@ -13,13 +13,13 @@ import java.util.Base64;
 @Component
 public class PBKDF2Encoder implements PasswordEncoder {
 
-    @Value("${springbootjjwt.password.secret}")
+    @Value("${springbootwebfluxjjwt.password.encoder.secret}")
     private String secret;
 
-    @Value("${springbootjjwt.password.iteration}")
+    @Value("${springbootwebfluxjjwt.password.encoder.iteration}")
     private Integer iteration;
 
-    @Value("${springbootjjwt.password.keylength}")
+    @Value("${springbootwebfluxjjwt.password.encoder.keylength}")
     private Integer keylength;
 
     /**
@@ -43,5 +43,4 @@ public class PBKDF2Encoder implements PasswordEncoder {
     public boolean matches(CharSequence cs, String string) {
         return encode(cs).equals(string);
     }
-
 }

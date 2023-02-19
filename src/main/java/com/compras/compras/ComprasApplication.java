@@ -10,6 +10,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 
 @SpringBootApplication
+//@EnableWebFlux
 @OpenAPIDefinition(info = @Info(title = "Swagger Demo", version = "1.0", description = "Documentation APIs v1.0"))
 public class ComprasApplication {
 	public static void main(String[] args) {

@@ -10,8 +10,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class UserDto {
-    @Getter
-    @Setter
+
+    @Id
     private String id;
     @Getter
     @Setter
@@ -32,5 +32,13 @@ public class UserDto {
         this.username = username;
         this.password = password;
         this.roles = roles;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

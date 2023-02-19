@@ -41,7 +41,7 @@ public class AuthenticationREST {
 
     @PostMapping("/login")
     public Mono<ResponseEntity<AuthResponse>> login(@RequestBody AuthRequest ar) {
-        return userRepository.findByUsername(ar.getUserName())
+        return userRepository.findByUsername(ar.getUsername())
                 .filter(userDetails -> passwordEncoder.encode(ar.getPassword()).equals(userDetails.getPassword()))
                 .map(userDetails -> ResponseEntity.ok(new AuthResponse(jwtUtil.generateToken(userDetails))))
                 .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()));

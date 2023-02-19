@@ -1,4 +1,4 @@
-package com.compras.compras.security.repository;
+/*package com.compras.compras.security.repository;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,3 +11,4 @@ public class UserDetailService implements UserDetailsService {
         return null;
     }
 }
+*/

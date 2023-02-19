@@ -50,38 +50,10 @@ public class WebSecurityConfiguration {
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/login").permitAll()
                 .pathMatchers("/create").permitAll()
-                .pathMatchers("/getAllBills").permitAll()
+                .pathMatchers("/getAllBills").hasAnyRole("USER")
+                .pathMatchers("/getAll/{page}").hasAnyRole("ADMIN")
                 .anyExchange().authenticated()
                 .and().build();
     }
 }
 
-/*@AllArgsConstructor
-@EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
-public class WebSecurityConfiguration {
-
-    private AuthenticationManager authenticationManager;
-    private SecurityContextRepository securityContextRepository;
-
-    @Bean
-    public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
-        return http
-                .exceptionHandling()
-                .authenticationEntryPoint((swe, e) ->
-                        Mono.fromRunnable(() -> swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED))
-                ).accessDeniedHandler((swe, e) ->
-                        Mono.fromRunnable(() -> swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN))
-                ).and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .authenticationManager(authenticationManager)
-                .securityContextRepository(securityContextRepository)
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers("/login").permitAll()
-                .anyExchange().authenticated()
-                .and().build();
-    }
-}*/

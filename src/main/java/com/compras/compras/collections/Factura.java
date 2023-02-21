@@ -23,6 +23,7 @@ public class Factura {
     @NotNull(message = "Name cannot be null")
     private String clientName;
     private List products;
+    private String username;
 
 
     public String getId() {

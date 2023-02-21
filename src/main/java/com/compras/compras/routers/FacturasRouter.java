@@ -72,6 +72,17 @@ public class FacturasRouter {
                         ))
         );
     }
+    @Bean
+    public RouterFunction<ServerResponse> getAdminProducts(GetAllProductsUseCase getAllProductsUseCase) {
+        return route(
+                GET("/getAdminProducts/{page}"),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllProductsUseCase
+                                .getAdminProducts(request.pathVariable("page")),Producto[].class
+                        ))
+        );
+    }
    @Bean
    @RouterOperation
            (

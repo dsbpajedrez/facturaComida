@@ -21,4 +21,12 @@ public class GetAllProductsUseCase implements GetAllProductsI {
                 .retrieve()
                 .bodyToMono(Producto[].class);
     }
+
+
+    public Mono<Producto[]> getAdminProducts(String page) {
+        return webClient.get()
+                .uri("/getAllProducts/{page}", page)
+                .retrieve()
+                .bodyToMono(Producto[].class);
+    }
 }

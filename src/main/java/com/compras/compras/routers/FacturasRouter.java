@@ -37,7 +37,6 @@ public class FacturasRouter {
 
 
     @Bean
-    @CrossOrigin(origins = "*")
     @RouterOperation
             (
                     path = "/getAll/{page}",

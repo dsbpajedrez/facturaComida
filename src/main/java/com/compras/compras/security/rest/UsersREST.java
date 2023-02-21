@@ -31,6 +31,6 @@ public class UsersREST {
                                         .mapperToUser(null).apply(userDTO))
                                 .map(User::getId);
                     }
-                });
+                }).onErrorReturn("Ya existe este usuario");
     }
 }

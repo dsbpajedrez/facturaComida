@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+
 import java.util.List;
 
 public class UserDto {

@@ -44,7 +44,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 String token = authHeader.substring(7);
                 if (jwtUtil.validateToken(token)) {
-
                     Claims claims = jwtUtil.getAllClaimsFromToken(token);
                     List<String> rolesMap = claims.get("role", List.class);
                     List<GrantedAuthority> authorities = new ArrayList<>();

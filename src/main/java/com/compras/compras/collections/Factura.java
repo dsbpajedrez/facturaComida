@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class Factura {
     @Id
     private String id;
-    private LocalTime date;
+    private Date date;
     @NotNull(message = "id cannot be null")
     private String idType;
     @Min(value = 8, message = "Id should not be less than 3")
@@ -25,7 +25,6 @@ public class Factura {
     private List products;
     private String username;
 
-
     public String getId() {
         return id;
     }
@@ -34,11 +33,11 @@ public class Factura {
         this.id = id;
     }
 
-    public LocalTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -72,5 +71,13 @@ public class Factura {
 
     public void setProducts(List products) {
         this.products = products;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

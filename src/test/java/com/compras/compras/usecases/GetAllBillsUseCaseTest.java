@@ -3,6 +3,7 @@ package com.compras.compras.usecases;
 import com.compras.compras.collections.Factura;
 import com.compras.compras.model.FacturaDTO;
 import com.compras.compras.repositories.FacturaRepository;
+import com.compras.compras.security.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,14 +22,14 @@ class GetAllBillsUseCaseTest {
     FacturaRepository repository;
 
     GetAllBillsUseCase getAllBillsUseCase;
-
+    UserRepository userRepository;
 
     @BeforeEach
     public void setup(){
         MapperUtils mapperUtils = new MapperUtils();
 
         repository = mock(FacturaRepository.class);
-        getAllBillsUseCase = new GetAllBillsUseCase( repository, mapperUtils);
+        getAllBillsUseCase = new GetAllBillsUseCase( repository, mapperUtils, userRepository);
     }
 
     @Test
@@ -36,7 +37,7 @@ class GetAllBillsUseCaseTest {
         Factura factura = new Factura();
         LocalTime fecha = LocalTime.now();
         List listProducts = new ArrayList();
-        FacturaDTO facturaDTO =new FacturaDTO("1", fecha, "cc", "123", "carlos", listProducts);
+        FacturaDTO facturaDTO =new FacturaDTO("1", fecha, "cc", "123", "carlos", listProducts, "username_2");
         factura.setId(facturaDTO.getId());
         factura.setIdType(facturaDTO.getIdType());
         factura.setClientId(facturaDTO.getClientId());

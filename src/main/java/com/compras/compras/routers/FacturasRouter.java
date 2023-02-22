@@ -34,7 +34,17 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class FacturasRouter {
-
+    @Bean
+    public RouterFunction<ServerResponse> getUserFromBills(GetAllBillsUseCase getAllBillsUseCase) {
+        return route(
+                GET("/get-users-bills/{username}"),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getAllBillsUseCase
+                                .findByUserName(request.pathVariable("username")),FacturaDTO.class
+                        ))
+        );
+    }
 
     @Bean
     @RouterOperation

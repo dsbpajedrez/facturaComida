@@ -41,7 +41,7 @@ public class WebSecurityConfiguration {
                 .pathMatchers("/login").permitAll()
                 .pathMatchers("/create").permitAll()
                 .pathMatchers("/getAllBills").hasRole("ADMIN")
-                .pathMatchers("/createBill").hasRole("ADMIN")
+                .pathMatchers("/createBill").hasAnyRole("ADMIN","USER")
                 .pathMatchers("/getAll/{page}").hasAnyRole("ADMIN","USER")
                 .pathMatchers("/seekByName/{name}").hasAnyRole("ADMIN","USER")
                 .pathMatchers("/seekById/{id}").hasAnyRole("ADMIN","USER")
@@ -50,6 +50,8 @@ public class WebSecurityConfiguration {
                 .pathMatchers("/update").hasRole("ADMIN")
                 .pathMatchers("/changeState/{id}").hasRole("ADMIN")
                 .pathMatchers("/getAdminProducts/{page}").hasRole("ADMIN")
+                .pathMatchers("/get-users-bills/{username}").hasAnyRole("ADMIN","USER")
+
                 .anyExchange().authenticated()
                 .and().build();
     }

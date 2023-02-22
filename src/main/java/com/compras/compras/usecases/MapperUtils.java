@@ -17,7 +17,7 @@ public class MapperUtils {
             facturaDTO.setClientName(updateFactura.getClientName());
             facturaDTO.setIdType(updateFactura.getIdType());
             facturaDTO.setProducts(updateFactura.getProducts());
-
+            facturaDTO.setUsername(updateFactura.getUsername());
             return facturaDTO;
         };
     }
@@ -29,7 +29,8 @@ public class MapperUtils {
                 entity.getIdType(),
                 entity.getClientId(),
                 entity.getClientName(),
-                entity.getProducts()
+                entity.getProducts(),
+                entity.getUsername()
         );
     }
 }

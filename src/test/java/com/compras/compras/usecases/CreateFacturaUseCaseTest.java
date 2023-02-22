@@ -32,7 +32,7 @@ class CreateFacturaUseCaseTest {
         Factura factura = new Factura();
         LocalTime fecha = LocalTime.now();
         List listProducts = new ArrayList();
-        FacturaDTO facturaDTO =new FacturaDTO("1", fecha, "cc", "123", "Alberto", listProducts);
+        FacturaDTO facturaDTO =new FacturaDTO("1", fecha, "cc", "123", "Alberto", listProducts, "username_1");
         factura.setId(facturaDTO.getId());
         factura.setIdType(facturaDTO.getIdType());
         factura.setClientId(facturaDTO.getClientId());

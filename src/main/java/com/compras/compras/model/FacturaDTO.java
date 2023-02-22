@@ -12,32 +12,42 @@ import java.util.Objects;
 public class FacturaDTO {
 
     private String id;
-    private LocalTime date;
+    private Date date;
     private String idType;
 
     private String clientId;
     private String clientName;
     private List products;
-
+    private  String username;
     public FacturaDTO() {
 
     }
 
-    public FacturaDTO(LocalTime date, String idType, String clientId, String clientName, List products) {
+    public FacturaDTO(Date date, String idType, String clientId, String clientName, List products, String username) {
         this.date = date;
         this.idType = idType;
         this.clientId = clientId;
         this.clientName = clientName;
         this.products = products;
+        this.username = username;
     }
 
-    public FacturaDTO(String id, LocalTime date, String idType, String clientId, String clientName, List products) {
+    public FacturaDTO(String id, Date date, String idType, String clientId, String clientName, List products, String username) {
         this.id = id;
         this.date = date;
         this.idType = idType;
         this.clientId = clientId;
         this.clientName = clientName;
         this.products = products;
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getId() {
@@ -48,12 +58,12 @@ public class FacturaDTO {
         this.id = id;
     }
 
-    public LocalTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalTime date) {
-        this.date= LocalTime.now().plusHours(-5);
+    public void setDate(Date date) {
+        this.date= date;
     }
 
     public String getIdType() {

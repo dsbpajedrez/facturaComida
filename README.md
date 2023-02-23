@@ -24,5 +24,5 @@ Swagger
 En detalle se puede ver en el swagger.
 * Personas-Desarrolladores del Proyecto
 
+Julian Roberto Mazo
 David Santiago Benjumea Pérez
-correo: dsbpim@gmail.com

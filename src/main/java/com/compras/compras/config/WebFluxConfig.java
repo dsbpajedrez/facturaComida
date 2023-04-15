@@ -40,7 +40,8 @@ public class WebFluxConfig {
         ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient.wiretap(true));
 
         return WebClient.builder()
-                .baseUrl("http://localhost:8080")
+                //.baseUrl("http://localhost:8080")
+                .baseUrl("https://dsbpajedrez-comidasapiproducto-production.up.railway.app")
                 .clientConnector(connector)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();

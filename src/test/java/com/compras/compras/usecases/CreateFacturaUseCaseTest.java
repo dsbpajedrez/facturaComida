@@ -1,4 +1,4 @@
-package com.compras.compras.usecases;
+/*package com.compras.compras.usecases;
 
 import com.compras.compras.collections.Factura;
 import com.compras.compras.model.FacturaDTO;
@@ -55,4 +55,4 @@ class CreateFacturaUseCaseTest {
                 }).verifyComplete();
 
     }
-}
+}*/

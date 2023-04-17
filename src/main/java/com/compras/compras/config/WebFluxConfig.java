@@ -16,16 +16,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 
 @Configuration
-public class WebFluxConfig {
-    @Bean
-    public WebFluxConfigurer corsConfigure() {
-        return new WebFluxConfigurerComposite() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*")
-                        .allowedMethods("*");
-            }
-        };
+public class WebFluxConfig implements WebFluxConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("https://tiendacomidas.web.app")
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+                .allowedHeaders("*");
+
     }
     @Bean
     public WebClient getWebClient()

@@ -24,7 +24,7 @@ public class CorsFilter implements WebFilter {
                     .add("Access-Control-Allow-Origin", "*");
             exchange.getResponse()
                     .getHeaders()
-                    .add("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+                    .add("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH");
             exchange.getResponse()
                     .getHeaders()
                     .add("Access-Control-Allow-Headers", "authorization, content-type");

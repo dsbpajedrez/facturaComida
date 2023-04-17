@@ -21,8 +21,8 @@ public class WebFluxConfig implements WebFluxConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://tiendacomidas.web.app")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+                .allowedOrigins("*")
+                .allowedMethods("*")
                 .allowedHeaders("*");
 
     }
